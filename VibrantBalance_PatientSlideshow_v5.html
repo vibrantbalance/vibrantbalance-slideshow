@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vibrant Balance — Patient Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --navy:   #0F2540;
+  --navy2:  #163352;
+  --blue:   #2E6DA4;
+  --sky:    #5B9BD5;
+  --pale:   #C8DFF4;
+  --white:  #F5F9FD;
+  --gold:   #D4A853;
+  --gold2:  #EAC97A;
+  --warm:   #FDF8F0;
+  --FD: 'Cormorant Garamond', serif;
+  --FB: 'Jost', sans-serif;
+}
+html, body { width:100%; height:100%; overflow:hidden; background:var(--navy); font-family:var(--FB); }
+#show { position:fixed; inset:0; }
+
+/* ── EVERY SLIDE ── */
+.slide {
+  position:absolute; top:0; left:0;
+  width:100vw; height:100vh;
+  visibility:hidden; opacity:0;
+  transition:opacity 1.4s ease, visibility 0s linear 1.4s;
+  overflow:hidden;
+}
+.slide.on {
+  visibility:visible; opacity:1;
+  transition:opacity 1.4s ease, visibility 0s linear 0s;
+}
+
+/* ── PROGRESS & COUNTER ── */
+#bar { position:fixed; bottom:0; left:0; height:4px; width:0; background:linear-gradient(90deg,var(--sky),var(--gold)); z-index:999; }
+#ctr { position:fixed; bottom:14px; right:24px; font:300 12px/1 var(--FB); letter-spacing:.12em; color:rgba(255,255,255,.3); z-index:999; }
+
+/* ── SHARED ── */
+.rule { width:64px; height:2px; background:linear-gradient(90deg,var(--sky),var(--gold)); }
+.rule.c { margin:0 auto; }
+.eyebrow { font:500 clamp(14px,1.3vw,18px)/1 var(--FB); letter-spacing:.36em; text-transform:uppercase; color:var(--gold); }
+.wm { position:absolute; font:300 22vw/1 var(--FD); color:rgba(255,255,255,.025); pointer-events:none; user-select:none; white-space:nowrap; }
+
+/* ══════════════════════════════════════
+   S1 — WELCOME
+══════════════════════════════════════ */
+#s1 { background:var(--navy); display:flex; align-items:center; justify-content:center; text-align:center; }
+#s1 .accent { position:absolute; left:0; top:0; bottom:0; width:6px; background:linear-gradient(180deg,var(--sky),var(--gold)); }
+#s1 .wm { bottom:-8vh; right:-4vw; }
+#s1 .inn { position:relative; z-index:2; }
+#s1 .pn { font:500 clamp(16px,1.5vw,20px)/1 var(--FB); letter-spacing:.4em; text-transform:uppercase; color:var(--sky); margin-bottom:3vh; }
+#s1 h1 { font:300 clamp(64px,9vw,130px)/1.05 var(--FD); color:var(--white); margin-bottom:3vh; }
+#s1 h1 em { font-style:italic; color:var(--gold2); }
+#s1 .div { width:80px; height:2px; background:linear-gradient(90deg,var(--sky),var(--gold)); margin:0 auto 3vh; }
+#s1 .tag { font:300 italic clamp(26px,2.8vw,38px)/1.4 var(--FD); color:rgba(255,255,255,.7); }
+
+/* ══════════════════════════════════════
+   S2 — YOU MAY HAVE NOTICED
+══════════════════════════════════════ */
+#s2 { background:var(--navy2); display:flex; align-items:center; justify-content:center; text-align:center; }
+#s2 .wm { bottom:-6vh; right:-3vw; }
+#s2 .inn { position:relative; z-index:2; max-width:80vw; }
+#s2 h2 { font:300 clamp(50px,7vw,102px)/1.15 var(--FD); color:var(--white); margin-bottom:4vh; }
+#s2 h2 em { font-style:italic; color:var(--gold2); }
+#s2 p { font:300 clamp(26px,2.9vw,42px)/1.65 var(--FB); color:rgba(255,255,255,.78); max-width:70vw; margin:0 auto; }
+
+/* ══════════════════════════════════════
+   S3 — WHAT IS A TRAPPED EMOTION
+══════════════════════════════════════ */
+#s3 { background:var(--navy); display:flex; align-items:center; justify-content:center; }
+#s3 .tb { position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--blue),var(--gold)); }
+#s3 .inn { position:relative; z-index:2; max-width:82vw; text-align:center; }
+#s3 .eyebrow { margin-bottom:3vh; }
+#s3 h2 { font:300 clamp(48px,6.5vw,94px)/1.1 var(--FD); color:var(--white); margin-bottom:3.5vh; }
+#s3 h2 em { font-style:italic; color:var(--gold2); }
+#s3 .def { background:rgba(255,255,255,.06); border:1px solid rgba(91,155,213,.3); border-radius:16px; padding:4vh 4vw; }
+#s3 .def p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.82); }
+#s3 .def strong { color:var(--gold2); font-weight:500; }
+
+/* ══════════════════════════════════════
+   S4 — THE BODY IS ENERGY
+══════════════════════════════════════ */
+#s4 { background:var(--navy2); display:flex; align-items:center; justify-content:center; text-align:center; }
+#s4 .wm { bottom:-6vh; left:-3vw; }
+#s4 .inn { position:relative; z-index:2; max-width:80vw; }
+#s4 .eyebrow { margin-bottom:3vh; }
+#s4 h2 { font:300 clamp(48px,6.8vw,98px)/1.1 var(--FD); color:var(--white); margin-bottom:4vh; }
+#s4 h2 em { font-style:italic; color:var(--gold2); }
+#s4 p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.78); max-width:68vw; margin:0 auto; }
+
+/* ══════════════════════════════════════
+   QUOTE SLIDES
+══════════════════════════════════════ */
+.qs { display:flex; align-items:center; justify-content:center; text-align:center; }
+.qs .glow { position:absolute; width:60vw; height:60vw; border-radius:50%; background:radial-gradient(circle,rgba(91,155,213,.12) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.qs .inn { position:relative; z-index:2; max-width:78vw; }
+.qs .qm { font:300 16vw/0.55 var(--FD); color:rgba(91,155,213,.2); display:block; margin-bottom:2vh; }
+.qs blockquote { font:300 italic clamp(42px,5.8vw,86px)/1.35 var(--FD); color:var(--white); margin-bottom:4vh; }
+.qs cite { font:400 clamp(18px,1.8vw,26px)/1.5 var(--FB); letter-spacing:.15em; text-transform:uppercase; color:var(--gold); font-style:normal; }
+.qs cite em { font-style:italic; letter-spacing:0; }
+/* mid-navy variant — replaces cream */
+.qs.lt { background:var(--navy2) !important; }
+.qs.lt .glow { background:radial-gradient(circle,rgba(212,168,83,.12) 0%,transparent 70%); }
+.qs.lt blockquote { color:var(--white); }
+.qs.lt .qm { color:rgba(212,168,83,.2); }
+.qs.lt cite { color:var(--gold2); }
+.qs.lt .rule { background:linear-gradient(90deg,var(--sky),var(--gold)); }
+
+/* ══════════════════════════════════════
+   S6 — WHAT IS MUSCLE TESTING
+══════════════════════════════════════ */
+#s6 { background:var(--navy); display:flex; align-items:center; justify-content:center; }
+#s6 .tb { position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--sky),var(--gold)); }
+#s6 .inn { position:relative; z-index:2; max-width:82vw; text-align:center; }
+#s6 .eyebrow { margin-bottom:3vh; }
+#s6 h2 { font:300 clamp(48px,6.5vw,94px)/1.1 var(--FD); color:var(--white); margin-bottom:3.5vh; }
+#s6 h2 em { font-style:italic; color:var(--gold2); }
+#s6 .def { background:rgba(255,255,255,.06); border:1px solid rgba(91,155,213,.3); border-radius:16px; padding:4vh 4vw; }
+#s6 .def p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.82); }
+#s6 .def strong { color:var(--gold2); font-weight:500; }
+
+/* ══════════════════════════════════════
+   S7 — HOW TRAPPED EMOTIONS AFFECT YOU
+══════════════════════════════════════ */
+#s7 { background:var(--navy2); display:flex; align-items:center; justify-content:center; text-align:center; }
+#s7 .wm { bottom:-6vh; right:-3vw; }
+#s7 .inn { position:relative; z-index:2; max-width:82vw; }
+#s7 .eyebrow { margin-bottom:3vh; }
+#s7 h2 { font:300 clamp(46px,6.2vw,90px)/1.15 var(--FD); color:var(--white); margin-bottom:4vh; }
+#s7 h2 em { font-style:italic; color:var(--gold2); }
+#s7 p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.78); max-width:68vw; margin:0 auto; }
+
+/* ══════════════════════════════════════
+   S8 — WHAT IS THE EMOTION CODE
+══════════════════════════════════════ */
+#s8 { background:var(--navy); display:flex; align-items:center; justify-content:center; }
+#s8 .tb { position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--blue),var(--gold)); }
+#s8 .inn { position:relative; z-index:2; max-width:82vw; text-align:center; }
+#s8 .eyebrow { margin-bottom:3vh; }
+#s8 h2 { font:300 clamp(48px,6.5vw,94px)/1.1 var(--FD); color:var(--white); margin-bottom:3.5vh; }
+#s8 h2 em { font-style:italic; color:var(--gold2); }
+#s8 .def { background:rgba(255,255,255,.06); border:1px solid rgba(91,155,213,.3); border-radius:16px; padding:4vh 4vw; }
+#s8 .def p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.82); }
+#s8 .def strong { color:var(--gold2); font-weight:500; }
+
+/* ══════════════════════════════════════
+   S9 — WHAT IS THE BODY CODE
+══════════════════════════════════════ */
+#s9 { background:var(--navy2); display:flex; align-items:center; justify-content:center; text-align:center; }
+#s9 .wm { bottom:-6vh; left:-3vw; }
+#s9 .inn { position:relative; z-index:2; max-width:84vw; }
+#s9 .eyebrow { margin-bottom:3vh; }
+#s9 h2 { font:300 clamp(48px,6.5vw,94px)/1.1 var(--FD); color:var(--white); margin-bottom:4vh; }
+#s9 h2 em { font-style:italic; color:var(--gold2); }
+#s9 p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.78); max-width:70vw; margin:0 auto; }
+
+/* ══════════════════════════════════════
+   S10 — WHAT TO EXPECT
+══════════════════════════════════════ */
+#s10 { background:var(--navy); display:flex; align-items:center; justify-content:center; }
+#s10 .tb { position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--sky),var(--gold)); }
+#s10 .inn { position:relative; z-index:2; max-width:82vw; text-align:center; }
+#s10 .eyebrow { margin-bottom:3vh; }
+#s10 h2 { font:300 clamp(48px,6.5vw,94px)/1.1 var(--FD); color:var(--white); margin-bottom:4vh; }
+#s10 h2 em { font-style:italic; color:var(--gold2); }
+#s10 .pts { display:flex; flex-direction:column; gap:2.5vh; max-width:74vw; margin:0 auto; }
+#s10 .pt { display:flex; align-items:center; gap:2.5vw; text-align:left; }
+#s10 .dot { width:16px; height:16px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+#s10 .pt p { font:300 clamp(24px,2.7vw,40px)/1.6 var(--FB); color:rgba(255,255,255,.82); }
+
+/* ══════════════════════════════════════
+   S11 — IT IS SAFE & GENTLE
+══════════════════════════════════════ */
+#s11 { background:var(--navy2); display:flex; align-items:center; justify-content:center; text-align:center; }
+#s11 .wm { bottom:-6vh; right:-3vw; }
+#s11 .inn { position:relative; z-index:2; max-width:80vw; }
+#s11 .eyebrow { margin-bottom:3vh; }
+#s11 h2 { font:300 clamp(48px,6.8vw,98px)/1.1 var(--FD); color:var(--white); margin-bottom:4vh; }
+#s11 h2 em { font-style:italic; color:var(--gold2); }
+#s11 p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.78); max-width:68vw; margin:0 auto; }
+
+/* ══════════════════════════════════════
+   S12 — TESTIMONIALS
+══════════════════════════════════════ */
+#s12 { background:var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:5vh 6vw; text-align:center; }
+#s12 .eyebrow { margin-bottom:2vh; }
+#s12 h2 { font:300 clamp(42px,5.5vw,80px)/1.1 var(--FD); color:var(--white); margin-bottom:4vh; }
+.tg { display:grid; grid-template-columns:repeat(3,1fr); gap:2.5vw; width:100%; max-width:90vw; }
+.tc { background:rgba(255,255,255,.06); border:1px solid rgba(91,155,213,.25); border-radius:16px; padding:3.5vh 2.5vw; display:flex; flex-direction:column; gap:2vh; }
+.tc::before { content:'\201C'; font:300 6vw/0.7 var(--FD); color:rgba(91,155,213,.3); align-self:flex-start; }
+.tt { font:300 italic clamp(20px,2.2vw,32px)/1.65 var(--FD); color:rgba(255,255,255,.85); text-align:left; flex:1; }
+.tph { font:400 clamp(13px,1.1vw,17px)/1 var(--FB); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); border-top:1px solid rgba(91,155,213,.25); padding-top:1.5vh; }
+
+/* ══════════════════════════════════════
+   S13 — CLOSING QUOTE
+══════════════════════════════════════ */
+
+/* ══════════════════════════════════════
+   S14 — CLOSING CTA
+══════════════════════════════════════ */
+#s14 { background:var(--navy); display:flex; align-items:center; justify-content:center; text-align:center; }
+#s14 .r1 { position:absolute; width:72vw; height:72vw; border-radius:50%; border:1px solid rgba(91,155,213,.15); top:50%; left:50%; transform:translate(-50%,-50%); }
+#s14 .r2 { position:absolute; width:52vw; height:52vw; border-radius:50%; border:1px solid rgba(91,155,213,.2); top:50%; left:50%; transform:translate(-50%,-50%); }
+#s14 .inn { position:relative; z-index:2; max-width:76vw; }
+#s14 .eyebrow { margin-bottom:3vh; }
+#s14 h2 { font:300 clamp(52px,7.5vw,110px)/1.1 var(--FD); color:var(--white); margin-bottom:3vh; }
+#s14 h2 em { font-style:italic; color:var(--gold2); }
+#s14 p { font:300 clamp(26px,2.9vw,42px)/1.7 var(--FB); color:rgba(255,255,255,.75); max-width:58vw; margin:0 auto 4vh; }
+#s14 .ct { display:inline-block; padding:1.8vh 4vw; border:2px solid var(--sky); border-radius:50px; font:400 clamp(16px,1.5vw,22px)/1 var(--FB); letter-spacing:.2em; text-transform:uppercase; color:var(--white); margin-bottom:3vh; }
+#s14 .pf { font:300 italic clamp(24px,2.6vw,36px)/1 var(--FD); color:var(--gold); }
+</style>
+</head>
+<body>
+<div id="show">
+
+<!-- S1: WELCOME -->
+<div class="slide on" id="s1">
+  <div class="accent"></div>
+  <span class="wm" style="bottom:-8vh;right:-4vw">Healing</span>
+  <div class="inn">
+    <div class="pn">Vibrant Balance</div>
+    <div class="div"></div>
+    <h1 style="margin-top:3vh">Welcome.<br>You are in<br><em>good hands.</em></h1>
+    <div class="div" style="margin-top:3vh"></div>
+    <div class="tag" style="margin-top:2.5vh">While you wait, take a moment to learn<br>about this practice — and how it can help you.</div>
+  </div>
+</div>
+
+<!-- S2: YOU MAY HAVE NOTICED -->
+<div class="slide" id="s2">
+  <span class="wm" style="bottom:-6vh;right:-3vw">Notice</span>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">Something to consider</div>
+    <h2>Have you ever noticed that<br><em>stress shows up in your body?</em></h2>
+    <p>A knot in your stomach before a hard conversation. Tension in your shoulders after a difficult day. A headache that appears when you are overwhelmed.</p>
+    <p style="margin-top:3vh;color:var(--gold2)">Your emotions and your body are not separate. They speak the same language.</p>
+  </div>
+</div>
+
+<!-- S3: WHAT IS A TRAPPED EMOTION -->
+<div class="slide" id="s3">
+  <div class="tb"></div>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">A new idea — simply explained</div>
+    <h2>What is a<br><em>Trapped Emotion?</em></h2>
+    <div class="def">
+      <p>Sometimes, when going through something difficult, the emotional energy from that experience doesn't fully leave the body. It gets <strong>stuck</strong> — like a splinter under the skin. Over time, that stuck energy can cause <strong>pain, fatigue, anxiety,</strong> or other problems.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S4: THE BODY IS ENERGY -->
+<div class="slide" id="s4">
+  <span class="wm" style="bottom:-6vh;left:-3vw">Energy</span>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">What science tells us</div>
+    <h2>Your body is made<br>of <em>energy</em> —<br>not just matter.</h2>
+    <p style="margin-top:1vh">At the deepest level, every cell in your body is vibrating energy. This is not just ancient wisdom — modern physics confirms it. When that energy flows freely, you feel well. When it is blocked or distorted, you feel pain, fatigue, or dis-ease.</p>
+  </div>
+</div>
+
+<!-- S5: PERT QUOTE A -->
+<div class="slide qs" style="background:var(--navy2)">
+  <div class="glow"></div>
+  <div class="inn">
+    <span class="qm">"</span>
+    <blockquote>Your mind is in every cell of your body.</blockquote>
+    <div class="rule c" style="margin-bottom:3vh"></div>
+    <cite>Dr. Candace Pert &nbsp;·&nbsp; Neuroscientist, National Institutes of Health &nbsp;·&nbsp; <em>Molecules of Emotion</em></cite>
+  </div>
+</div>
+
+<!-- S5b: PERT QUOTE B -->
+<div class="slide qs lt">
+  <div class="glow"></div>
+  <div class="inn">
+    <span class="qm">"</span>
+    <blockquote>The body and mind are not separate, and we cannot treat one without the other.</blockquote>
+    <div class="rule c" style="margin-bottom:3vh"></div>
+    <cite>Dr. Candace Pert &nbsp;·&nbsp; Neuroscientist, National Institutes of Health &nbsp;·&nbsp; <em>Molecules of Emotion</em></cite>
+  </div>
+</div>
+
+<!-- S5c: VAN DER KOLK QUOTE -->
+<div class="slide qs" style="background:var(--navy)">
+  <div class="glow"></div>
+  <div class="inn">
+    <span class="qm">"</span>
+    <blockquote>Trauma is not the story of something that happened back then. It is the current imprint of that pain living inside people.</blockquote>
+    <div class="rule c" style="margin-bottom:3vh"></div>
+    <cite>Dr. Bessel van der Kolk &nbsp;·&nbsp; Psychiatrist, Harvard Medical School &nbsp;·&nbsp; <em>The Body Keeps the Score</em></cite>
+  </div>
+</div>
+
+<!-- S5d: PLANCK QUOTE PART 1 -->
+<div class="slide qs" style="background:var(--navy)">
+  <div class="glow"></div>
+  <div class="inn">
+    <span class="qm">"</span>
+    <blockquote>There is no matter as such. All matter originates and exists only by virtue of a force which brings the particle of an atom into vibration and holds this most minute solar system of the atom together.</blockquote>
+    <div class="rule c" style="margin-bottom:3vh"></div>
+    <cite>Max Planck &nbsp;·&nbsp; Father of Quantum Theory &nbsp;·&nbsp; Nobel Laureate in Physics &nbsp;·&nbsp; <em>The Nature of Matter</em>, 1944</cite>
+  </div>
+</div>
+
+<!-- S5e: PLANCK QUOTE PART 2 -->
+<div class="slide qs lt">
+  <div class="glow"></div>
+  <div class="inn">
+    <span class="qm">"</span>
+    <blockquote>We must assume, behind this force, the existence of a conscious and intelligent mind. This mind is the matrix of all matter.</blockquote>
+    <div class="rule c" style="margin-bottom:3vh"></div>
+    <cite>Max Planck &nbsp;·&nbsp; Father of Quantum Theory &nbsp;·&nbsp; Nobel Laureate in Physics &nbsp;·&nbsp; <em>The Nature of Matter</em>, 1944</cite>
+  </div>
+</div>
+
+<!-- S6: WHAT IS MUSCLE TESTING -->
+<div class="slide" id="s6">
+  <div class="tb"></div>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">A new idea — simply explained</div>
+    <h2>What is<br><em>Muscle Testing?</em></h2>
+    <div class="def">
+      <p>Your body has its own intelligence. Muscle testing is a gentle way of <strong>asking the body yes/no questions</strong> — not the thinking mind, but the deeper subconscious. A subtle change in muscle response reveals the answer. It is painless, non-invasive, and surprisingly accurate.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S7: HOW TRAPPED EMOTIONS AFFECT YOU -->
+<div class="slide" id="s7">
+  <span class="wm" style="bottom:-6vh;right:-3vw">Effect</span>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">Why it matters</div>
+    <h2>Trapped emotions<br>can affect you in<br><em>unexpected ways.</em></h2>
+    <p style="margin-top:1vh">Chronic pain. Recurring anxiety. Feeling stuck. Trouble sleeping. Relationship patterns that repeat. These may not be random — they may have an energetic root that can be found and released.</p>
+  </div>
+</div>
+
+<!-- S8: WHAT IS THE EMOTION CODE -->
+<div class="slide" id="s8">
+  <div class="tb"></div>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">A new idea — simply explained</div>
+    <h2>What is the<br><em>Emotion Code?</em></h2>
+    <div class="def">
+      <p>A gentle, step-by-step method — developed by Dr. Bradley Nelson, DC — for <strong>finding and releasing trapped emotions</strong> stored in the body. Using muscle testing, the practitioner identifies exactly which emotion is stuck, when it became trapped, and then releases it — simply and painlessly.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S9: WHAT IS THE BODY CODE -->
+<div class="slide" id="s9">
+  <span class="wm" style="bottom:-6vh;left:-3vw">Body</span>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">A new idea — simply explained</div>
+    <h2>What is the<br><em>Body Code?</em></h2>
+    <p style="margin-top:1vh">The Body Code goes even deeper — a comprehensive system that looks at <em style="color:var(--gold2)">six areas</em> that may be out of balance: emotional energies, body systems, toxins, pathogens, structural issues, and nutrition. Together, these give us a complete picture of what may be holding your body back from healing.</p>
+  </div>
+</div>
+
+<!-- S10: WHAT TO EXPECT IN A SESSION -->
+<div class="slide" id="s10">
+  <div class="tb"></div>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">Your session</div>
+    <h2>What to expect<br>in a <em>session</em></h2>
+    <div class="pts">
+      <div class="pt"><div class="dot"></div><p>A brief conversation about what you are experiencing and what you hope to shift.</p></div>
+      <div class="pt"><div class="dot"></div><p>Gentle muscle testing guides us to what your body wants to address first.</p></div>
+      <div class="pt"><div class="dot"></div><p>Every finding is shared with you in plain language as the session unfolds.</p></div>
+      <div class="pt"><div class="dot"></div><p>Each imbalance is released simply — no re-experiencing the past required.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- S11: SAFE AND GENTLE -->
+<div class="slide" id="s11">
+  <span class="wm" style="bottom:-6vh;right:-3vw">Safe</span>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">You may be wondering</div>
+    <h2>Is this<br><em>safe?</em></h2>
+    <p style="margin-top:1vh">Yes — completely. There is nothing invasive, nothing painful, and nothing to be afraid of. You remain fully clothed and in control at all times. Energy work like this is a <em style="color:var(--gold2)">complement to your medical care</em> — not a replacement for it. Many patients find it deeply relaxing.</p>
+  </div>
+</div>
+
+<!-- S12: TESTIMONIALS -->
+<div class="slide" id="s12">
+  <div class="eyebrow" style="margin-bottom:2vh">Patient Experiences</div>
+  <h2>What Our Patients Say</h2>
+  <div class="tg">
+    <div class="tc"><div class="tt">I had carried chronic back pain for years. After just a few sessions, something shifted that nothing else had been able to reach.</div><div class="tph">— Patient Testimonial Placeholder</div></div>
+    <div class="tc"><div class="tt">I was skeptical. But the anxiety I had lived with for years began to ease after my second session. I felt so much lighter.</div><div class="tph">— Patient Testimonial Placeholder</div></div>
+    <div class="tc"><div class="tt">The practitioner explained everything as it happened. I always knew exactly what was going on. I felt respected and safe throughout.</div><div class="tph">— Patient Testimonial Placeholder</div></div>
+  </div>
+</div>
+
+<!-- S13: CLOSING QUOTE -->
+<div class="slide qs" style="background:var(--navy2)">
+  <div class="glow"></div>
+  <div class="inn">
+    <span style="font:300 24px/1 var(--FD);color:var(--gold);letter-spacing:.3em;display:block;margin-bottom:3vh">✦ ✦ ✦</span>
+    <blockquote>The greatest medicine is to teach people how not to need it.</blockquote>
+    <div class="rule c" style="margin-bottom:3vh"></div>
+    <cite>Hippocrates &nbsp;·&nbsp; Father of Medicine</cite>
+  </div>
+</div>
+
+<!-- S14: CLOSING CTA -->
+<div class="slide" id="s14">
+  <div class="r1"></div>
+  <div class="r2"></div>
+  <div class="inn">
+    <div class="eyebrow" style="margin-bottom:3vh">Here for you</div>
+    <h2>Ready to feel<br><em>truly well?</em></h2>
+    <p>Ask at the front desk about your first session. In-person, video, and remote sessions available to fit your life.</p>
+    <div class="ct">Speak with us today</div>
+    <div class="pf">Vibrant Balance</div>
+  </div>
+</div>
+
+</div>
+<div id="bar"></div>
+<div id="ctr"></div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const bar = document.getElementById('bar');
+  const ctr = document.getElementById('ctr');
+  const DUR = 17000;
+  let cur = 0, t0 = null, af = null;
+
+  function go(idx) {
+    slides[cur].classList.remove('on');
+    cur = ((idx % slides.length) + slides.length) % slides.length;
+    slides[cur].classList.add('on');
+    ctr.textContent = (cur + 1) + ' · ' + slides.length;
+    run();
+  }
+
+  function run() {
+    cancelAnimationFrame(af);
+    t0 = performance.now();
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      bar.style.transition = 'width ' + DUR + 'ms linear';
+      bar.style.width = '100%';
+    }));
+    function loop(now) {
+      if (now - t0 >= DUR) { go(cur + 1); return; }
+      af = requestAnimationFrame(loop);
+    }
+    af = requestAnimationFrame(loop);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') go(cur + 1);
+    if (e.key === 'ArrowLeft') go(cur - 1);
+    if (e.key === 'Escape') { cancelAnimationFrame(af); bar.style.transition = 'none'; }
+  });
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+  document.addEventListener('touchend', e => { const d = e.changedTouches[0].clientX - tx; if (Math.abs(d)>50) go(cur+(d<0?1:-1)); }, {passive:true});
+
+  ctr.textContent = '1 · ' + slides.length;
+  run();
+</script>
+</body>
+</html>
