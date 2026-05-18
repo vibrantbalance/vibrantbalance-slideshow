@@ -226,7 +226,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--navy); f
     <div class="div"></div>
     <h1 style="margin-top:3vh">Welcome.<br>You are in<br><em>good hands.</em></h1>
     <div class="div" style="margin-top:3vh"></div>
-    <div class="tag" style="margin-top:2.5vh">While you wait, take a moment to learn<br>about this practice — and how it can help you.</div>
+    <div class="tag" style="margin-top:2.5vh">Take a moment to learn<br>about this practice — and how it can help you.</div>
   </div>
 </div>
 
@@ -347,7 +347,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--navy); f
     <div class="eyebrow" style="margin-bottom:3vh">A new idea — simply explained</div>
     <h2>What is the<br><em>Emotion Code?</em></h2>
     <div class="def">
-      <p>A gentle, step-by-step method — developed by Dr. Bradley Nelson, DC — for <strong>finding and releasing trapped emotions</strong> stored in the body. Using muscle testing, the practitioner identifies exactly which emotion is stuck, when it became trapped, and then releases it — simply and painlessly.</p>
+      <p>A gentle, step-by-step method — developed by Dr. Bradley Nelson, DC — for <strong>finding and releasing trapped emotions</strong> stored in the body. Using muscle testing, Dr. Lampshire identifies exactly which emotion is stuck, when it became trapped, and then releases it — simply and painlessly.</p>
     </div>
   </div>
 </div>
@@ -430,7 +430,29 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--navy); f
   const slides = Array.from(document.querySelectorAll('.slide'));
   const bar = document.getElementById('bar');
   const ctr = document.getElementById('ctr');
-  const DUR = 17000;
+
+  // Per-slide durations in milliseconds (18 slides)
+  const DURS = [
+    6000,  // S1  - Welcome
+    10000, // S2  - You may have noticed
+    10000, // S3  - Trapped emotion definition
+    10000, // S4  - Body is energy
+    5000,  // S5  - Pert Quote A
+    5000,  // S5b - Pert Quote B
+    5000,  // S5c - Van der Kolk Quote
+    8000,  // S5d - Planck Quote 1
+    5000,  // S5e - Planck Quote 2
+    10000, // S6  - Muscle testing
+    10000, // S7  - How trapped emotions affect you
+    10000, // S8  - Emotion Code
+    10000, // S9  - Body Code
+    10000, // S10 - What to expect in a session
+    8000,  // S11 - Is this safe
+    15000, // S12 - Testimonials
+    4000,  // S13 - Closing quote
+    5000,  // S14 - Closing CTA
+  ];
+
   let cur = 0, t0 = null, af = null;
 
   function go(idx) {
@@ -444,14 +466,15 @@ html, body { width:100%; height:100%; overflow:hidden; background:var(--navy); f
   function run() {
     cancelAnimationFrame(af);
     t0 = performance.now();
+    const dur = DURS[cur] || 10000;
     bar.style.transition = 'none';
     bar.style.width = '0%';
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      bar.style.transition = 'width ' + DUR + 'ms linear';
+      bar.style.transition = 'width ' + dur + 'ms linear';
       bar.style.width = '100%';
     }));
     function loop(now) {
-      if (now - t0 >= DUR) { go(cur + 1); return; }
+      if (now - t0 >= dur) { go(cur + 1); return; }
       af = requestAnimationFrame(loop);
     }
     af = requestAnimationFrame(loop);
